@@ -6,37 +6,9 @@ This assignment asks to download 6 CSV files with employees data for us to desig
 
 Explored the files to dtermine what columns would be the primary keys, foreign keys, set data types and data constraints. 
 
-You can see the CSV_files_colum_names.xlsx in this repository, the file names and column names look like below. 
-+--------------------------------------------------------------------------------------------------=---+
-|  FILE NAME   |                                      COLUM NAMES                                      |
-+------------------------------------------------------------------------------------------------------+
-| departments  | dept_no	   | dept_name	  |				                                           |
-+------------------------------------------------------------------------------------------------------+							
-| dept_emp	   | emp_no	       | dept_no	  |				                                           |
-+------------------------------------------------------------------------------------------------------+							
-| dept_manager | dept_no	   | emp_no		  |		                                                   |	
-+------------------------------------------------------------------------------------------------------+							
-| employess	   | emp_no	       | emp_title_id | birth_date | first_name | last_name | sex | hire_date  |
-+------------------------------------------------------------------------------------------------------+							
-| salaries	   | emp_no	       | salary       |					                                       |
-+------------------------------------------------------------------------------------------------------+							
-| titles	   | title_id	   | title		  |	                                                       |
-| -----------------------------------------------------------------------------------------------------|	
+You can see the CSV_files_colum_names.xlsx in this repository, the file names and column names are in a file named csv_files.png 
 
-
-Here is a basic diagram of the database based. 
-+----------------+     +---------------+     +-------------+     +-------------+      +---------+      +-----------+
-| departments    |     | dept_emp      |     | employees   |     | dept_manager|      |salaries |      | titles    |
-+----------------+     +---------------+     +-------------+     +-------------+      +---------+      +-----------+
-| dept_no (PK)   |     | emp_no (PK)   |     | emp_no (PK) |     | dept_no (PK)|      | emp_no  |      | title_id  |
-| dept_name      |     | dept_no (PK)  |     | birth_date  |     | emp_no (PK) |      | salary  |      | title     |
-+----------------+     +---------------+     | first_name  |     +-------------+      +---------+      +-----------+
-                                             | last_name   |
-                                             | sex         |
-                                             | hire_date   |
-                                             +-------------+
-
-The analisys of the columns yielded and after trial and error, the tables were created like below order.
+After reviewin teh columns and data of the CSV files I created a basic diagram can be found in the repository with the name basic_diagram.png 
 The character limit VARCHAR(255) was probably too large for names but for this small database would not be an issue, 
 I tried creating the tables in differnt order and realized the order matters as one table must exist for the foreing keys to be referenced to existing primary keys. 
 The dept_manager and the dept_emp tables used a composite primary key.
@@ -88,42 +60,12 @@ CREATE TABLE salaries (
 );
 
 
-
-
-'''
-Table follows {
-  following_user_id integer
-  followed_user_id integer
-  created_at timestamp 
-}
-
-Table users {
-  id integer [primary key]
-  username varchar
-  role varchar
-  created_at timestamp
-}
-
-Table posts {
-  id integer [primary key]
-  title varchar
-  body text [note: 'Content of the post']
-  user_id integer
-  status varchar
-  created_at timestamp
-}
-
-
-'''
-
 The queries as they were requested in the Data Analysis section were as follows.  
-
 
 -- 1. List the employee number, last name, first name, sex, and salary of each employee.
 SELECT employees.emp_no, employees.last_name, employees.first_name, employees.sex, salaries.salary FROM employees
 JOIN salaries ON employees.emp_no = salaries.emp_no
 ORDER BY emp_no;
-
 
 -- 2. List the first name, last name, and hire date for the employees who were hired in 1986.
 SELECT employees.first_name, employees.last_name, employees.hire_date FROM employees 
@@ -135,7 +77,6 @@ SELECT dept_manager.dept_no, departments.dept_name, dept_manager.emp_no, employe
 JOIN departments ON departments.dept_no = dept_manager.dept_no 
 JOIN employees ON dept_manager.emp_no = employees.emp_no
 ORDER BY emp_no;
-
 
 -- 4. List the department number for each employee along with that employee’s employee number, last name, first name, and department name
 SELECT dept_manager.dept_no, employees.emp_no, employees.last_name, employees.first_name, departments.dept_name FROM dept_manager
@@ -163,7 +104,6 @@ JOIN dept_manager ON dept_emp.dept_no = dept_manager.dept_no
 JOIN departments ON dept_manager.dept_no = departments.dept_no
 WHERE departments.dept_name = 'Sales' OR departments.dept_name = 'Development' 
 ORDER BY employees.emp_no; 
-
 
 -- 8. List the frequency counts, in descending order, of all the employee last names (that is, how many employees share each last name).
 SELECT employees.last_name, COUNT(*) as frequency_count from employees

@@ -54,7 +54,6 @@ CREATE TABLE salaries (
 */
 
 
-
 --
 -- PostgreSQL database dump
 --
