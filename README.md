@@ -23,7 +23,7 @@ I thought it was easier than creating a surrogate primary key for the 2 tables.
 Please find the results of the queries in the folder named 'Results' found in this repository. 
 
 Below you have the tables schemas and the queries. 
-
+--
 CREATE TABLE departments (
   dept_no VARCHAR(255) PRIMARY KEY,
   dept_name VARCHAR(255) NOT NULL
