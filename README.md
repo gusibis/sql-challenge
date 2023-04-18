@@ -67,7 +67,6 @@ CREATE TABLE salaries (
   PRIMARY KEY (emp_no)
 );
 
-
 The queries as they were requested in the Data Analysis section were as follows.  
 
 -- 1. List the employee number, last name, first name, sex, and salary of each employee.
