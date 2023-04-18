@@ -23,7 +23,6 @@ I thought it was easier than creating a surrogate primary key for the 2 tables.
 Please find the results of the queries in the folder named 'Results' found in this repository. 
 
 Below you have the tables schemas and the queries. 
-
 CREATE TABLE departments (
   dept_no VARCHAR(255) PRIMARY KEY,
   dept_name VARCHAR(255) NOT NULL
@@ -74,19 +73,16 @@ SELECT employees.emp_no, employees.last_name, employees.first_name, employees.se
 INNER JOIN salaries ON employees.emp_no = salaries.emp_no
 ORDER BY emp_no;
 
-
 -- 2. List the first name, last name, and hire date for the employees who were hired in 1986.
 SELECT employees.first_name, employees.last_name, employees.hire_date FROM employees 
 WHERE CAST(employees.hire_date AS VARCHAR) LIKE '1986-%'
 ORDER BY emp_no;
-
 
 -- 3. List the manager of each department along with their department number, department name, employee number, last name, and first name.
 SELECT dept_manager.dept_no, departments.dept_name, dept_manager.emp_no, employees.last_name, employees.first_name FROM dept_manager
 INNER JOIN departments ON departments.dept_no = dept_manager.dept_no 
 INNER JOIN employees ON dept_manager.emp_no = employees.emp_no
 ORDER BY emp_no;
-
 
 -- 4. List the department number for each employee along with that employee’s employee number, last name, first name, and department name
 SELECT dept_manager.dept_no, employees.emp_no, employees.last_name, employees.first_name, departments.dept_name FROM dept_manager
